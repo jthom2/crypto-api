@@ -1,3 +1,9 @@
+![Cryptocurrency Exchange Rate Application](file-9NPu2rxuGZm7xel43pbhZHrh)
+
+<p align="center">
+  <img src="file-9NPu2rxuGZm7xel43pbhZHrh" />
+</p>
+
 # Cryptocurrency Exchange Rate API
 
 ## Introduction
