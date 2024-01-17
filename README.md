@@ -34,4 +34,4 @@ The application will start running on `http://127.0.0.1:8000`. You can access th
 
 ---
 
-For more information on how to use FastAPI, visit the [FastAPI documentation](https://fastapi.tiangolo.com/).
+Powered by https://www.coinapi.io/
