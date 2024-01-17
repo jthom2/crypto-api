@@ -1,9 +1,4 @@
-![Cryptocurrency Exchange Rate Application](file-9NPu2rxuGZm7xel43pbhZHrh)
-
-<p align="center">
-  <img src="file-9NPu2rxuGZm7xel43pbhZHrh" />
-</p>
-
+![DALL·E 2024-01-16 20 15 30 - Design a sleek and modern landscape logo for a cryptocurrency exchange rate application  The logo should include elements that symbolize digital curre-modified](https://github.com/jthom2/crypto-api/assets/134821369/fc4765de-b914-4d18-980a-5bccd12898f8)
 # Cryptocurrency Exchange Rate API
 
 ## Introduction
