@@ -12,7 +12,7 @@ app = FastAPI()
 async def root():
     return {"message": "Hello World"}
 
-
+# Functions
 async def fetch_data(crypto: str):
     url = f"https://rest.coinapi.io/v1/exchangerate/{crypto}/USD"
     headers = {
@@ -21,7 +21,17 @@ async def fetch_data(crypto: str):
     async with httpx.AsyncClient() as client:
         response = await client.get(url, headers=headers)
         return response.json()
+    
+async def fetch_coin_to_coin_data(crypto1: str, crypto2: str):
+    url = f"https://rest.coinapi.io/v1/exchangerate/{crypto1}/{crypto2}"
+    headers = {
+        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
+    }
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, headers=headers)
+        return response.json()
 
+# Endpoints
 @app.get("/btc")
 async def exchange_rate():
     data = await fetch_data(crypto="BTC")
@@ -42,7 +52,7 @@ async def exchange_rate():
 
 @app.get("/btc_to_eth")
 async def exchange_rate():
-    data = await fetch_btc_to_eth_data()
+    data = await fetch_coin_to_coin_data(crypto1="BTC", crypto2="ETH")
     if "rate" in data:
         rate = data["rate"]
         return {"message": f"1 BTC = {rate} ETH"}
@@ -51,7 +61,7 @@ async def exchange_rate():
 
 @app.get("/btc_to_ltc")
 async def exchange_rate():
-    data = await fetch_btc_to_ltc_data()
+    data = await fetch_coin_to_coin_data(crypto1="BTC", crypto2="LTC")
     if "rate" in data:
         rate = data["rate"]
         return {"message": f"1 BTC = {rate} LTC"}
@@ -71,7 +81,7 @@ async def exchange_rate():
 
 @app.get("/eth_to_ltc")
 async def exchange_rate():
-    data = await fetch_eth_to_ltc_data()
+    data = await fetch_coin_to_coin_data(crypto1="ETH", crypto2="LTC")
     if "rate" in data:
         rate = data["rate"]
         return {"message": f"1 ETH = {rate} LTC"}
@@ -79,65 +89,4 @@ async def exchange_rate():
         return {"message": "Error fetching rate. Please try again later."}
 
 
-async def fetch_btc_data():
-    url = "https://rest.coinapi.io/v1/exchangerate/BTC/USD"
-    headers = {
-        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
 
-async def fetch_eth_data():
-    url = "https://rest.coinapi.io/v1/exchangerate/ETH/USD"
-    headers = {
-        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
-
-async def fetch_ltc_data():
-    url = "https://rest.coinapi.io/v1/exchangerate/LTC/USD"
-    headers = {
-        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
-    
-async def fetch_btc_to_eth_data():
-    url = "https://rest.coinapi.io/v1/exchangerate/BTC/ETH"
-    headers = {
-        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
-
-async def fetch_btc_to_ltc_data():
-    url = "https://rest.coinapi.io/v1/exchangerate/BTC/LTC"
-    headers = {
-        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
-
-async def fetch_eth_to_ltc_data():
-    url = "https://rest.coinapi.io/v1/exchangerate/ETH/LTC"
-    headers = {
-        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
