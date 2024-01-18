@@ -49,6 +49,16 @@ async def exchange_rate():
         return {"message": f"1 LTC = {rate} USD"}
     else:
         return {"message": "Error fetching rate. Please try again later."}
+    
+@app.get("/eth")
+async def exchange_rate():
+    data = await fetch_data(crypto="ETH")
+    if "rate" in data:
+        rate = data["rate"]
+        return {"message": f"1 ETH = {rate} USD"}
+    else:
+        return {"message": "Error fetching rate. Please try again later."} 
+
 
 @app.get("/btc_to_eth")
 async def exchange_rate():
@@ -67,17 +77,6 @@ async def exchange_rate():
         return {"message": f"1 BTC = {rate} LTC"}
     else:
         return {"message": "Error fetching rate. Please try again later."}
-
-    
-@app.get("/eth")
-async def exchange_rate():
-    data = await fetch_data(crypto="ETH")
-    if "rate" in data:
-        rate = data["rate"]
-        return {"message": f"1 ETH = {rate} USD"}
-    else:
-        return {"message": "Error fetching rate. Please try again later."}    
-
 
 @app.get("/eth_to_ltc")
 async def exchange_rate():
