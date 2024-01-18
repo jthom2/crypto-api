@@ -1,3 +1,4 @@
+![DALL·E 2024-01-16 20 15 30 - Design a sleek and modern landscape logo for a cryptocurrency exchange rate application  The logo should include elements that symbolize digital curre-modified](https://github.com/jthom2/crypto-api/assets/134821369/fc4765de-b914-4d18-980a-5bccd12898f8)
 # Cryptocurrency Exchange Rate API
 
 ## Introduction
@@ -34,4 +35,4 @@ The application will start running on `http://127.0.0.1:8000`. You can access th
 
 ---
 
-For more information on how to use FastAPI, visit the [FastAPI documentation](https://fastapi.tiangolo.com/).
+Powered by https://www.coinapi.io/
