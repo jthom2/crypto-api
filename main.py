@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
+from utils import fetch_data, fetch_coin_to_coin_data
 import requests
 import httpx
 import os
@@ -11,25 +12,6 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
-
-# Functions
-async def fetch_data(crypto: str):
-    url = f"https://rest.coinapi.io/v1/exchangerate/{crypto}/USD"
-    headers = {
-        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
-    
-async def fetch_coin_to_coin_data(crypto1: str, crypto2: str):
-    url = f"https://rest.coinapi.io/v1/exchangerate/{crypto1}/{crypto2}"
-    headers = {
-        "X-CoinAPI-Key": os.environ.get("COIN_API_KEY")
-    }
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers)
-        return response.json()
 
 # Endpoints
 @app.get("/btc")
