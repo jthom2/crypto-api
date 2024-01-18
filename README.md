@@ -25,6 +25,9 @@ The application will start running on `http://127.0.0.1:8000`. You can access th
 - `/btc` - Fetches and displays the exchange rate for Bitcoin (BTC) in USD.
 - `/ltc` - Fetches and displays the exchange rate for Litecoin (LTC) in USD.
 - `/eth` - Fetches and displays the exchange rate for Ethereum (ETH) in USD.
+- `/btc_to_eth` - Converts and displays the exchange rate from Bitcoin (BTC) to Ethereum (ETH).
+- `/btc_to_ltc` - Converts and displays the exchange rate from Bitcoin (BTC) to Litecoin (LTC).
+- `/eth_to_ltc` - Converts and displays the exchange rate from Ethereum (ETH) to Litecoin (LTC).
 
 ## Dependencies
 - FastAPI: A modern, fast (high-performance) web framework for building APIs.
