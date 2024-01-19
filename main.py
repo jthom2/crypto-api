@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Query
 from dotenv import load_dotenv
-from utils import fetch_data, fetch_coin_to_coin_data
+from utils import fetch_data
 import requests
 import httpx
 import os
@@ -9,65 +9,20 @@ load_dotenv()
 
 app = FastAPI()
 
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
-# Endpoints
-@app.get("/btc")
-async def exchange_rate():
-    data = await fetch_data(crypto="BTC")
+
+
+@app.get("/convert")
+async def exchange_rate(crypto_from: str = Query(...), crypto_to: str = Query("USD")):
+    data = await fetch_data(crypto_from.upper(), crypto_to.upper())
+    if "error" in data:
+        raise HTTPException(status_code=400, detail=data["error"])
     if "rate" in data:
         rate = data["rate"]
-        return {"message": f"1 BTC = {rate} USD"}
-    else:
-        return {"message": "Error fetching rate. Please try again later."}
-
-@app.get("/ltc")
-async def exchange_rate():
-    data = await fetch_data(crypto="LTC")
-    if "rate" in data:
-        rate = data["rate"]
-        return {"message": f"1 LTC = {rate} USD"}
-    else:
-        return {"message": "Error fetching rate. Please try again later."}
-    
-@app.get("/eth")
-async def exchange_rate():
-    data = await fetch_data(crypto="ETH")
-    if "rate" in data:
-        rate = data["rate"]
-        return {"message": f"1 ETH = {rate} USD"}
-    else:
-        return {"message": "Error fetching rate. Please try again later."} 
-
-
-@app.get("/btc_to_eth")
-async def exchange_rate():
-    data = await fetch_coin_to_coin_data(crypto1="BTC", crypto2="ETH")
-    if "rate" in data:
-        rate = data["rate"]
-        return {"message": f"1 BTC = {rate} ETH"}
-    else:
-        return {"message": "Error fetching rate. Please try again later."}
-
-@app.get("/btc_to_ltc")
-async def exchange_rate():
-    data = await fetch_coin_to_coin_data(crypto1="BTC", crypto2="LTC")
-    if "rate" in data:
-        rate = data["rate"]
-        return {"message": f"1 BTC = {rate} LTC"}
-    else:
-        return {"message": "Error fetching rate. Please try again later."}
-
-@app.get("/eth_to_ltc")
-async def exchange_rate():
-    data = await fetch_coin_to_coin_data(crypto1="ETH", crypto2="LTC")
-    if "rate" in data:
-        rate = data["rate"]
-        return {"message": f"1 ETH = {rate} LTC"}
-    else:
-        return {"message": "Error fetching rate. Please try again later."}
-
-
-
+        return {"message": f"1 {crypto_from.upper()} = {rate} {crypto_to.upper()}"}
+    else: 
+        return {"message": "Error fetching data. Please try again later."}
